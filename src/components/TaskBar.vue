@@ -1,6 +1,6 @@
 <template>
   <div id="taskbar">
-
+    asd
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: 40px;
-  background-color: black;
-  opacity: .8;
+  background-color: rgba(0, 0, 0, .7);
+  color: white;
 }
 </style>

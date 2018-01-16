@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: 'Folder',
   data () {
@@ -118,7 +120,7 @@ export default {
           this.current_tree = item.tree
           break
         case 'file':
-          alert('EDIT ' + item.name)
+          store.dispatch('editFile', item)
           break
         case 'image':
           alert('SEE IMAGE ' + item.name)

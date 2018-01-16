@@ -2,12 +2,14 @@
   <div id="desktop">
     <Folder />
     <Folder />
-    <Folder />
+
+    <Editor />
   </div>
 </template>
 
 <script>
 import Folder from './Folder'
+import Editor from './Editor'
 
 export default {
   name: 'HelloWorld',
@@ -17,12 +19,12 @@ export default {
     }
   },
   components: {
-    Folder: Folder
+    Folder: Folder,
+    Editor: Editor
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #desktop {
   background-color: cyan;
