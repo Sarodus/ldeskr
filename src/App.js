@@ -13,7 +13,7 @@ export default Vue.component('App', {
     let runningApps = []
     store.state.taskbar.applications.forEach(appName => {
       const el = mappedApps[appName]
-      store.dispatch('ensureOpen', el)
+      store.dispatch('openApplication', appName)
       runningApps.push(createElement(el))
     })
     return createElement('div', [

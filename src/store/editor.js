@@ -19,8 +19,9 @@ export default {
     editFile: (context, item) => {
       context.commit('editFile', item)
     },
-    clearEditor: ({commit}) => {
-      commit('clearEditor')
+    closeEditor: (context) => {
+      context.commit('clearEditor')
+      context.commit('closeApplication', 'Editor')
     }
   },
   getters: {}

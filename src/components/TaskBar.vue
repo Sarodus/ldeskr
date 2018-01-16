@@ -1,8 +1,8 @@
 <template>
   <div id="taskbar">
-    <div v-for="item in $store.state.taskbar.appsOpened" :key="item._uid">
-      <div class="app" v-on:click="selectItem(item)">
-        {{ item.name }}
+    <div v-for="item in $store.state.taskbar.appsOpened" :key="item[0]">
+      <div class="app" v-on:click="selectItem(item[0])">
+        {{ item[0] }}
       </div>
     </div>
   </div>
@@ -14,9 +14,8 @@ import store from '@/store'
 export default {
   name: 'TaskBar',
   methods: {
-    selectItem (item) {
-      console.log(store.state.taskbar.appsOpened)
-      store.dispatch('selectItem', item)
+    selectItem (key) {
+      store.dispatch('selectItem', {key})
     }
   }
 }

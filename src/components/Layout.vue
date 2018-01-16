@@ -47,7 +47,7 @@ export default {
   computed: {
     stateStyle: function () {
       return {
-        zIndex: store.state.taskbar.currentApp === this.$parent ? 1000 : 100
+        zIndex: store.state.taskbar.currentApp === this.$parent._uid ? 1000 : 100
       }
     }
   },

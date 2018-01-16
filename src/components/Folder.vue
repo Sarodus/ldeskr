@@ -116,14 +116,14 @@ export default {
       this.is_open = !this.is_open
       if (this.is_open) {
         this.current_tree = this.tree
-        store.dispatch('openItem', this)
+        store.dispatch('openItem', {app: this, key: this._uid})
       } else {
-        store.dispatch('closeItem', this)
+        store.dispatch('closeItem', this._uid)
       }
     },
     closeFolder: function () {
       this.is_open = false
-      store.dispatch('closeItem', this)
+      store.dispatch('closeItem', this._uid)
     },
     open: function (item) {
       switch (item.type) {

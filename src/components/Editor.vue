@@ -1,6 +1,6 @@
 <template>
 <div>
-  <Layout v-if="$store.state.editor.editingFiles.length > 0" :onClose="clearEditor">
+  <Layout v-if="$store.state.editor.editingFiles.length > 0" :onClose="closeEditor">
     <div slot="title">{{ $store.state.editor.currentFile.title }} ({{ $store.state.editor.editingFiles.length }})</div>
     {{ $store.state.editor.currentFile.content }}
   </Layout>
@@ -14,11 +14,11 @@ import store from '@/store'
 export default {
   name: 'Editor',
   components: {
-    Layout: Layout
+    Layout
   },
   methods: {
-    clearEditor () {
-      store.dispatch('clearEditor')
+    closeEditor () {
+      store.dispatch('closeEditor')
     }
   }
 }
