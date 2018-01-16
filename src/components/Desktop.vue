@@ -1,36 +1,42 @@
 <template>
   <div id="desktop">
-    <Folder />
-    <Folder />
-
-    <Editor />
+    <!-- FOR EACH OF FOLDERS AND ICONS -->
+    <Folder :name="'hola'" />
+    <Folder :name="'que'" />
+    <Folder :name="'tal'" />
   </div>
 </template>
 
 <script>
 import Folder from './Folder'
-import Editor from './Editor'
 
 export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
+  name: 'Desktop',
   components: {
-    Folder: Folder,
-    Editor: Editor
+    Folder
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 #desktop {
   background-color: cyan;
   width: 100%;
   height: 100vh;
   display: block;
   margin: none;
+}
+
+html, body {
+  margin: 0;
+}
+
+#app {
+  margin: none;
+
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="layout" v-bind:style="windowSizes">
+  <div id="layout" v-bind:style="[windowSizes, stateStyle]">
     <div id="title_bar">
       <div id="title">
         <slot name="title">Title</slot>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-// import store from '@/store'
+import store from '@/store'
 
 function setDefaultLayoutSize () {
   return {
@@ -42,6 +42,13 @@ export default {
       is_fullscreen: false,
       name: 'name',
       windowSizes: setDefaultLayoutSize()
+    }
+  },
+  computed: {
+    stateStyle: function () {
+      return {
+        zIndex: store.state.taskbar.currentApp === this.$parent ? 1000 : 100
+      }
     }
   },
   methods: {

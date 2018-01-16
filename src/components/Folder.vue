@@ -1,42 +1,36 @@
 <template>
   <div>
-    <div class="folder" v-on:click="toggle_open">
+    <div class="folder" v-on:click="toggleOpen">
       <img src="../assets/img/folder-blue.svg">
       <span class="title">{{ name }}</span>
     </div>
-    <div id="inside" v-if="is_open" v-bind:style="windowSizes">
-      <div id="title_bar">
-        <div id="title">TITLE</div>
-          <div class="action minimize" v-on:click="minimize">_</div>
-          <div class="action full_screen" v-on:click="toggle_fullscreen">☐</div>
-          <div class="action close" v-on:click="toggle_open">x</div>
-        <div v-for="item in current_tree" :key="item.id">
-          <div class="folder" v-on:click="open(item)">
-            <img v-if="item.type === 'folder'" src="../assets/img/folder-blue.svg">
-            <img v-if="item.type === 'file'" src="../assets/img/file.svg">
-            <span class="title">{{item.name}}</span>
-          </div>
+    <Layout v-if="is_open" :onClose="closeFolder">
+      <div slot="title">{{ name }}</div>
+      <div v-for="item in current_tree" :key="item.id">
+        <div class="folder" v-on:click="open(item)">
+          <img v-if="item.type === 'folder'" src="../assets/img/folder-blue.svg">
+          <img v-if="item.type === 'file'" src="../assets/img/file.svg">
+          <span class="title">{{item.name}}</span>
         </div>
       </div>
-    </div>
+    </Layout>
   </div>
 </template>
 
 <script>
+import Layout from './Layout'
+// import Editor from './Editor'
 import store from '@/store'
 
 export default {
   name: 'Folder',
+  props: ['name'],
+  components: {
+    Layout
+  },
   data () {
     return {
       is_open: false,
-      name: 'name',
-      windowSizes: {
-        width: window.innerWidth / 10 * 8 + 'px',
-        height: window.innerHeight / 10 * 8 + 'px',
-        left: window.innerWidth / 10 + 'px',
-        top: window.innerHeight / 10 + 'px'
-      },
       tree: [
         {
           id: 1,
@@ -51,17 +45,23 @@ export default {
                 {
                   id: 3,
                   name: 'item1.1.1',
-                  type: 'file'
+                  type: 'file',
+                  title: 'file title',
+                  content: 'file content here'
                 },
                 {
                   id: 4,
                   name: 'item1.1.2',
-                  type: 'file'
+                  type: 'file',
+                  title: 'file title',
+                  content: 'file content here'
                 },
                 {
                   id: 5,
                   name: 'item1.1.3',
-                  type: 'file'
+                  type: 'file',
+                  title: 'file title',
+                  content: 'file content here'
                 }
               ]
             },
@@ -73,17 +73,23 @@ export default {
                 {
                   id: 7,
                   name: 'item1.2.1',
-                  type: 'file'
+                  type: 'file',
+                  title: 'file title',
+                  content: 'file content here'
                 },
                 {
                   id: 8,
                   name: 'item1.2.2',
-                  type: 'file'
+                  type: 'file',
+                  title: 'file title',
+                  content: 'file content here'
                 },
                 {
                   id: 9,
                   name: 'item1.2.3',
-                  type: 'file'
+                  type: 'file',
+                  title: 'file title',
+                  content: 'file content here'
                 },
                 {
                   id: 10,
@@ -97,22 +103,27 @@ export default {
         {
           id: 2,
           name: 'item2',
-          type: 'file'
+          type: 'file',
+          title: 'file title',
+          content: 'file content here'
         }
       ],
       current_tree: []
     }
   },
   methods: {
-    toggle_open: function () {
+    toggleOpen: function () {
       this.is_open = !this.is_open
-      this.current_tree = this.tree
+      if (this.is_open) {
+        this.current_tree = this.tree
+        store.dispatch('openItem', this)
+      } else {
+        store.dispatch('closeItem', this)
+      }
     },
-    toggle_fullscreen: function () {
-      alert('toggle_fullscreen')
-    },
-    minimize: function () {
-      alert('minimize')
+    closeFolder: function () {
+      this.is_open = false
+      store.dispatch('closeItem', this)
     },
     open: function (item) {
       switch (item.type) {
@@ -120,6 +131,7 @@ export default {
           this.current_tree = item.tree
           break
         case 'file':
+          store.dispatch('openApplication', 'Editor')
           store.dispatch('editFile', item)
           break
         case 'image':
